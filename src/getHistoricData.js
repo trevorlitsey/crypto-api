@@ -17,7 +17,7 @@ const fetchHistoricPriceDataForAssetCodeInUsd = async (assetCode) => {
     const formattedData = historicPrices.result[
       Object.keys(historicPrices.result)[0]
     ]
-      .slice(-30)
+      .slice(-2, -1) // remove today, get yesterday
       .map((entry) => {
         const [time, open, high, low, close, vwap, volume, count] = entry;
         const date = format(new Date(time * 1000), 'yyyy-MM-dd');
@@ -34,7 +34,7 @@ const fetchHistoricPriceDataForAssetCodeInUsd = async (assetCode) => {
         };
       });
 
-    return { assetCode, data: formattedData.slice(0, -1) };
+    return { assetCode, data: formattedData };
   } catch (e) {
     console.error('Could not fetch prices for ', PAIR, e);
     return Promise.resolve();

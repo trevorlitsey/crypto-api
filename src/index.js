@@ -11,8 +11,8 @@ const buyCyrpto = async () => {
   buyCoin(worstPerformingCoin);
 };
 
-const job = new CronJob(
-  '* * * 22 * *',
+var job = new CronJob(
+  process.env.CRON,
   buyCyrpto,
   null,
   true,

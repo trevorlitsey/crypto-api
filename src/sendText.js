@@ -4,11 +4,6 @@ const client = require('twilio')(
 );
 
 const sendText = (message) => {
-  console.log({
-    body: message,
-    from: process.env.TEXT_FROM,
-    to: process.env.TEXT_TO,
-  });
   client.messages
     .create({
       body: message,
