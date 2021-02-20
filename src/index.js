@@ -13,7 +13,7 @@ const buyCyrpto = async () => {
 
 var job = new CronJob(
   process.env.CRON,
-  () => console.log('gey'),
+  buyCyrpto,
   null,
   true,
   'America/Chicago'
