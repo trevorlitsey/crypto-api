@@ -10,13 +10,13 @@ const buyCyrpto = async () => {
   const worstPerformingCoin = await getWorstPerformingCoin(data);
   buyCoin(worstPerformingCoin);
 };
+buyCyrpto();
+// var job = new CronJob(
+//   process.env.CRON,
+//   buyCyrpto,
+//   null,
+//   true,
+//   'America/Chicago'
+// );
 
-var job = new CronJob(
-  process.env.CRON,
-  buyCyrpto,
-  null,
-  true,
-  'America/Chicago'
-);
-
-job.start();
+// job.start();
