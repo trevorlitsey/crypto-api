@@ -35,10 +35,12 @@ const buyCoin = async (worstPerformingCoin) => {
     printJSON(orderRes);
   } catch (e) {
     console.error('Unable to place order: ', e);
-    sendText([
-      `Unable to buy ${worstPerformingCoin.displayName}`,
-      `Error: ${e.message}`,
-    ]);
+    sendText(
+      [
+        `Unable to buy ${worstPerformingCoin.displayName}`,
+        `Error: ${e.message}`,
+      ].join('\n')
+    );
   }
 };
 
