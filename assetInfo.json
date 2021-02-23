@@ -1,9 +1,5 @@
 [
   {
-    "assetCode": "ETH",
-    "assetName": "Ethereum"
-  },
-  {
     "assetCode": "XBT",
     "assetName": "Bitcoin"
   }
