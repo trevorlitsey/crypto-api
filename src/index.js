@@ -7,7 +7,7 @@ const sendText = require('./sendText');
 const BITCOIN = 'XBT';
 const USD = 'USD';
 const PAIR = BITCOIN + USD;
-const USD_TO_SPEND = 9;
+const USD_TO_SPEND = 10;
 
 const buyCyrpto = async () => {
   let orderDetails = [];
