@@ -32,15 +32,16 @@ const placeOrder = async (assetCode) => {
     console.log(JSON.stringify(orderRes, null, '\t'));
 
     sendText(
-      ['BITCOIN ORDER SUCCESSFUL', JSON.stringify(orderRes, null, '\t')].join(
-        '\n'
-      )
+      [
+        `${assetCode} ORDER SUCCESSFUL`,
+        JSON.stringify(orderRes, null, '\t'),
+      ].join('\n')
     );
   } catch (e) {
     console.error(e.message);
     sendText(
       [
-        'BITCOIN ORDER FAILED',
+        `${assetCode} ORDER FAILED`,
         `USD Total: $${USD_TO_SPEND}`,
         `Error: ${e.message}`,
       ].join('\n')
