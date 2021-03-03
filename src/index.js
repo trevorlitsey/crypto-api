@@ -14,15 +14,15 @@ const authedClient = new CoinbasePro.AuthenticatedClient(
 const BUY = 'buy';
 const MARKET = 'market';
 const BITCOIN = 'BTC';
+const ETHER = 'ETH';
 const USD = 'USD';
-const PRODUCT_ID = BITCOIN + '-' + USD;
-const USD_TO_SPEND = 10;
+const USD_TO_SPEND = process.env.USD_TO_SPEND_PER_ORDER;
 
-const buyCyrpto = async () => {
+const placeOrder = async (assetCode) => {
   try {
     const order = {
       side: BUY,
-      product_id: PRODUCT_ID,
+      product_id: assetCode + '-' + USD,
       funds: USD_TO_SPEND,
       type: MARKET,
     };
@@ -46,6 +46,11 @@ const buyCyrpto = async () => {
       ].join('\n')
     );
   }
+};
+
+const buyCyrpto = async () => {
+  placeOrder(BITCOIN);
+  placeOrder(ETHER);
 };
 
 var job = new CronJob(
