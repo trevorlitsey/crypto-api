@@ -13,17 +13,15 @@ const authedClient = new CoinbasePro.AuthenticatedClient(
 
 const BUY = 'buy';
 const MARKET = 'market';
-const BITCOIN = 'BTC';
-const ETHER = 'ETH';
 const USD = 'USD';
 const USD_TO_SPEND = Number(process.env.USD_TO_SPEND_PER_ORDER);
 
-const placeOrder = async (assetCode) => {
+const placeOrder = async ({ assetCode, usdToOrder }) => {
   try {
     const order = {
       side: BUY,
       product_id: assetCode + '-' + USD,
-      funds: USD_TO_SPEND,
+      funds: usdToOrder,
       type: MARKET,
     };
 
@@ -34,7 +32,10 @@ const placeOrder = async (assetCode) => {
     sendText(
       [
         `${assetCode} ORDER SUCCESSFUL`,
-        JSON.stringify(orderRes, null, '\t'),
+        Object.entries(orderRes).reduce((acc, [key, value]) => {
+          acc.push(`${key}: ${value}`);
+          return acc;
+        }, []),
       ].join('\n')
     );
   } catch (e) {
@@ -50,8 +51,9 @@ const placeOrder = async (assetCode) => {
 };
 
 const buyCyrpto = async () => {
-  placeOrder(BITCOIN);
-  placeOrder(ETHER);
+  const assets = require('../assets');
+
+  assets.forEach(placeOrder);
 };
 
 var job = new CronJob(
