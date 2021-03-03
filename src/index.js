@@ -16,7 +16,7 @@ const MARKET = 'market';
 const BITCOIN = 'BTC';
 const ETHER = 'ETH';
 const USD = 'USD';
-const USD_TO_SPEND = process.env.USD_TO_SPEND_PER_ORDER;
+const USD_TO_SPEND = Number(process.env.USD_TO_SPEND_PER_ORDER);
 
 const placeOrder = async (assetCode) => {
   try {
