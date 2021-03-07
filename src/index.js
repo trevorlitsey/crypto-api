@@ -32,7 +32,7 @@ const placeOrder = async ({ assetCode, usdToOrder }) => {
     sendText(
       [
         `${assetCode} ORDER SUCCESSFUL`,
-        Object.entries(orderRes).reduce((acc, [key, value]) => {
+        ...CoinbaseProObject.entries(orderRes).reduce((acc, [key, value]) => {
           acc.push(`${key}: ${value}`);
           return acc;
         }, []),
