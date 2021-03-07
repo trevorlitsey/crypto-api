@@ -4,14 +4,15 @@ const client = require('twilio')(
 );
 
 const sendText = (message) => {
-  client.messages
-    .create({
-      body: message,
-      from: process.env.TEXT_FROM,
-      to: process.env.TEXT_TO,
-    })
-    .then((message) => console.log(message.sid))
-    .catch((e) => console.error(e));
+  console.log(message);
+  // client.messages
+  //   .create({
+  //     body: message,
+  //     from: process.env.TEXT_FROM,
+  //     to: process.env.TEXT_TO,
+  //   })
+  //   .then((message) => console.log(message.sid))
+  //   .catch((e) => console.error(e));
 };
 
 module.exports = sendText;
