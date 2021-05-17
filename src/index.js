@@ -2,9 +2,10 @@ const CoinbasePro = require('coinbase-pro');
 require('dotenv').config();
 const CronJob = require('cron').CronJob;
 
+const assets = require('../assets');
 const sendText = require('./sendText');
 
-const authedClient = new CoinbasePro.AuthenticatedClient(
+const coinbase = new CoinbasePro.AuthenticatedClient(
   process.env.COINBASE_API_KEY,
   process.env.COINBASE_API_SECRET,
   process.env.COINBASE_PASSPHRASE,
@@ -14,7 +15,6 @@ const authedClient = new CoinbasePro.AuthenticatedClient(
 const BUY = 'buy';
 const MARKET = 'market';
 const USD = 'USD';
-const USD_TO_SPEND = Number(process.env.USD_TO_SPEND_PER_ORDER);
 
 const placeOrder = async ({ assetCode, usdToOrder }) => {
   try {
@@ -25,40 +25,28 @@ const placeOrder = async ({ assetCode, usdToOrder }) => {
       type: MARKET,
     };
 
-    const orderRes = await authedClient.placeOrder(order);
+    const orderRes = await coinbase.placeOrder(order);
 
     console.log(JSON.stringify(orderRes, null, '\t'));
-
-    sendText(
-      [
-        `${assetCode} ORDER SUCCESSFUL`,
-        ...CoinbaseProObject.entries(orderRes).reduce((acc, [key, value]) => {
-          acc.push(`${key}: ${value}`);
-          return acc;
-        }, []),
-      ].join('\n')
-    );
   } catch (e) {
     console.error(e.message);
     sendText(
       [
         `${assetCode} ORDER FAILED`,
-        `USD Total: $${USD_TO_SPEND}`,
+        `USD Total: $${usdToOrder}`,
         `Error: ${e.message}`,
       ].join('\n')
     );
   }
 };
 
-const buyCyrpto = async () => {
-  const assets = require('../assets');
-
+const buyCrypto = async () => {
   assets.forEach(placeOrder);
 };
 
 var job = new CronJob(
   process.env.CRON,
-  buyCyrpto,
+  buyCrypto,
   null,
   true,
   'America/Chicago'
