@@ -2,7 +2,6 @@ const CoinbasePro = require('coinbase-pro');
 require('dotenv').config();
 const CronJob = require('cron').CronJob;
 
-const assets = require('../assets');
 const sendText = require('./sendText');
 
 const coinbase = new CoinbasePro.AuthenticatedClient(
@@ -41,6 +40,8 @@ const placeOrder = async ({ assetCode, usdToOrder }) => {
 };
 
 const buyCrypto = async () => {
+  delete require.cache[require.resolve('./assets')];
+  const assets = require('../assets');
   assets.forEach(placeOrder);
 };
 
