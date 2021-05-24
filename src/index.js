@@ -40,7 +40,7 @@ const placeOrder = async ({ assetCode, usdToOrder }) => {
 };
 
 const buyCrypto = async () => {
-  delete require.cache[require.resolve('./assets')];
+  delete require.cache[require.resolve('../assets')];
   const assets = require('../assets');
   assets.forEach(placeOrder);
 };
